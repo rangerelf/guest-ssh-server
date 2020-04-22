@@ -8,7 +8,7 @@ echo "## Creating Guest User"
 GUEST="guest${RANDOM:0:3}"
 PASSWD="$(dd if=/dev/urandom bs=1 count=10 2>/dev/null | base64 | sed 's/=*$//g')"
 echo "## Login: $GUEST"
-echo "## Password: $PASSWD"
+echo "## Password: $PASSWD (you can't use this though)"
 adduser -D $GUEST
 mkdir /home/$GUEST/.ssh
 echo "$GUEST:$PASSWD" | chpasswd 2>&1 | sed 's|^|## |g'
