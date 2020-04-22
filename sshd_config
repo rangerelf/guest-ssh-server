@@ -1,0 +1,7 @@
+# Everything else should be as set in defaults
+Port 22
+ListenAddress 0.0.0.0
+AuthorizedKeysFile	.ssh/authorized_keys
+PasswordAuthentication no
+PermitEmptyPasswords no
+AllowTcpForwarding yes
