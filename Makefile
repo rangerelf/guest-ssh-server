@@ -11,7 +11,7 @@ build:
 	docker build --rm -t ssh-server:local .
 
 shell:
-	docker run -ti --rm -p 2222:22 ssh-server:local /bin/bash -l
+	docker run -ti --rm -p 2222:22 ssh-server:local /bin/bash -l || true
 
 run:
-	docker run -ti --rm -p 2222:22 ssh-server:local
+	docker run -ti --rm -p 2222:22 ssh-server:local || true
