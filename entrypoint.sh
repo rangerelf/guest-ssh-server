@@ -10,13 +10,17 @@ PASSWD="$(dd if=/dev/urandom bs=1 count=10 2>/dev/null | base64 | sed 's/=*$//g'
 echo "## Login: $GUEST"
 echo "## Password: $PASSWD (you can't use this though)"
 adduser -D $GUEST
-mkdir /home/$GUEST/.ssh
 echo "$GUEST:$PASSWD" | chpasswd 2>&1 | sed 's|^|## |g'
-ssh-keygen -t rsa -b 1024 -f /home/$GUEST/.ssh/id_rsa -N "" -q
+mkdir /home/$GUEST/.ssh
+cd /home/$GUEST/.ssh
+ssh-keygen -t rsa -b 1024 -f ./id_rsa -N "" -q
+ln -v id_rsa.pub authorized_keys
 echo "####################################################################"
-echo "## Guest users key:" >&2
-cat /home/$GUEST/.ssh/id_rsa
+echo "## Guest users private ssh key:                                   ##"
 echo "####################################################################"
-find /home/$GUEST/.ssh -exec chmod og= {} \;
+cat id_rsa
+echo "####################################################################"
+find . -exec chmod og= {} \;
+cd /
 chown -R $GUEST: /home/$GUEST
 exec dumb-init "$@"
